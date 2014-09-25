@@ -1,5 +1,8 @@
 class ConwayLife
-  def run
-    fail "You need to add some functionality here before you can use this."
+  attr_reader :board
+
+  def initialize(n)
+    @board = Array.new(n**2)
   end
+
 end
