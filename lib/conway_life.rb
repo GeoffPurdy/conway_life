@@ -32,14 +32,31 @@ class ConwayLife
     return count
   end
 
-  def to_s
-    out = ""
+  def sweep_and_flag
+    @sweep = []
     @side.times do |i|
       @side.times do |j|
-        delim = 0==(j % @side) ? "\n" : ','
-        out << delim + @board[ linearize(i,j) ].to_s
+        @sweep[ linearize(i,j) ] = getNeighborCount(i,j)
+      end
+    end
+  end
+
+  def to_square_matrix(len, arr)
+    out = ""
+    len.times do |i|
+      len.times do |j|
+        delim = 0==(j % len) ? "\n" : ','
+        out << delim + arr[ linearize(i,j) ].to_s
       end
     end
     return out
+  end
+
+  def to_s
+    return to_square_matrix(@side, @board)
+  end
+
+  def get_sweep
+    return to_square_matrix(@side, @sweep)
   end
 end
