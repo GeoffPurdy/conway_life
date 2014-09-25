@@ -28,8 +28,11 @@ class ConwayLifeTest < Minitest::Unit::TestCase
   end
 
   def test_get_cell_neighbor_count_no_edges
+#    life.setCell(4,4,'x') # mark for printout in testing
     life = ConwayLife.new(8)
-    assert 0 == life.getNeighborCount(4,4)
+    life.setCell(3,3,1)
+    life.setCell(5,5,1)
+    assert 2 == life.getNeighborCount(4,4)
   end
 
   def test_get_cell_neighbor_count_all_edges
