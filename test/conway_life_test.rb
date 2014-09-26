@@ -47,8 +47,57 @@ class ConwayLifeTest < Minitest::Unit::TestCase
     assert 3 == life.getNeighborCount(1,1)
   end
 
-  def test_sweep_and_flag
-
+  def test_sweep_flag_reseed_0x0_all_zero
+    life = ConwayLife.new(0) # init'ed to all zeros by default
+    life.sweep_flag_reseed
+    assert life.board == ConwayLife.new(0).board
   end
 
+  def test_sweep_flag_reseed_1x1_all_zero
+    life = ConwayLife.new(1) # init'ed to all zeros by default
+    life.sweep_flag_reseed
+    assert life.board == ConwayLife.new(1).board
+  end
+
+  def test_sweep_flag_reseed_2x2_all_zero
+    life = ConwayLife.new(2) # init'ed to all zeros by default
+    life.sweep_flag_reseed
+    assert life.board == ConwayLife.new(2).board
+  end
+
+  def test_sweep_flag_reseed_3x3_all_zero
+    life = ConwayLife.new(3) # init'ed to all zeros by default
+    life.sweep_flag_reseed
+    assert life.board == ConwayLife.new(3).board
+  end
+
+  def test_sweep_flag_reseed_8x8_all_zero
+    life = ConwayLife.new(8) # init'ed to all zeros by default
+    life.sweep_flag_reseed
+    assert life.board == ConwayLife.new(8).board
+  end
+
+  def test_sweep_flag_reseed_1x1_all_ones
+    life = ConwayLife.new(1,1) # init'ed to all ones
+    life.sweep_flag_reseed
+    assert life.board == ConwayLife.new(1,0).board # zeros afer one iteration
+  end
+
+  def test_sweep_flag_reseed_2x2_all_ones
+    life = ConwayLife.new(2,1) # init'ed to all ones
+    life.sweep_flag_reseed
+    assert life.board == ConwayLife.new(2,0).board # zeros afer one iteration
+  end
+
+  def test_sweep_flag_reseed_3x3_all_ones
+    life = ConwayLife.new(3,1) # init'ed to all ones
+    life.sweep_flag_reseed
+    assert life.board == ConwayLife.new(3,0).board # zeros afer one iteration
+  end
+
+  def test_sweep_flag_reseed_8x8_all_ones
+    life = ConwayLife.new(8,1) # init'ed to all ones
+    life.sweep_flag_reseed
+    assert life.board == ConwayLife.new(8,0).board # zeros afer one iteration
+  end
 end

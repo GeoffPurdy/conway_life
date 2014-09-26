@@ -2,9 +2,9 @@ class ConwayLife
   attr_reader :board
   attr_reader :side
 
-  def initialize(n)
+  def initialize(n,c=0)
     @side = n
-    @board = Array.new(@side**2,0) # create and init all elements to 0
+    @board = Array.new(@side**2,c) # create and init all elements to c
   end
 
   def linearize(row, col)
@@ -25,6 +25,7 @@ class ConwayLife
     count = 0
     pos = linearize(row, col)
     adjacent = [(pos-@side-1), (pos-@side), (pos-@side+1), (pos-1), (pos+1), (pos+@side-1), (pos+@side), (pos+@side+1)]
+    # ^ FIXME this is ugly
     adjacent.each do  |a|
       count += (@board[a].to_i > 0 ? 1 : 0)
     end
@@ -43,25 +44,21 @@ class ConwayLife
     end
   end
 
-  def sweep_and_flag
-    @sweep = []
+  def sweep_flag_reseed
+    sweep = []
     @side.times do |i|
       @side.times do |j|
-        @sweep[ linearize(i,j) ] = getNeighborCount(i,j)
+        sweep[ linearize(i,j) ] = getNeighborCount(i,j)
       end
     end
 
     @side.times do |i|
       @side.times do |j|
         k = linearize(i,j)
-        @board[ k ] = calc_next_generation( @sweep[ k ] )
+        @board[ k ] = calc_next_generation( sweep[ k ] )
       end
     end
-
   end
-
-
-
 
   def to_square_matrix(len, arr)
     out = ""
@@ -76,10 +73,6 @@ class ConwayLife
 
   def to_s
     return to_square_matrix(@side, @board)
-  end
-
-  def get_sweep
-    return to_square_matrix(@side, @sweep)
   end
 
   private     :linearize
