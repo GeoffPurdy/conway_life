@@ -32,6 +32,18 @@ class ConwayLife
     return count
   end
 
+  def calc_next_generation(n)
+    if n <= 1
+      return 0
+    elsif 2 == n
+      return 1
+    elsif 3 == n
+      return 1
+    else
+      return 0
+    end
+  end
+
   def sweep_and_flag
     @sweep = []
     @side.times do |i|
@@ -39,7 +51,18 @@ class ConwayLife
         @sweep[ linearize(i,j) ] = getNeighborCount(i,j)
       end
     end
+
+    @side.times do |i|
+      @side.times do |j|
+        k = linearize(i,j)
+        @board[ k ] = calc_next_generation( @sweep[ k ] )
+      end
+    end
+
   end
+
+
+
 
   def to_square_matrix(len, arr)
     out = ""
