@@ -1,7 +1,6 @@
 class ConwayLife
   attr_reader :board
   attr_reader :side
-  # private     :linearize
 
   def initialize(n)
     @side = n
@@ -13,12 +12,12 @@ class ConwayLife
   end
 
   def setCell(row, col, val)
-    pos = self.linearize(row, col)
+    pos = linearize(row, col)
     @board[pos] = val
   end
 
   def getCell(row,col)
-    pos = self.linearize(row, col)
+    pos = linearize(row, col)
     return @board[pos]
   end
 
@@ -82,4 +81,6 @@ class ConwayLife
   def get_sweep
     return to_square_matrix(@side, @sweep)
   end
+
+  private     :linearize
 end
